@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anniversary Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #fdf6e3;
+      color: #333;
+      padding: 20px;
+    }
+    h1 {
+      color: #d16ba5;
+    }
+    .quiz-container {
+      margin: 20px auto;
+      padding: 20px;
+      border: 2px solid #d16ba5;
+      border-radius: 10px;
+      background-color: #fff;
+      max-width: 500px;
+    }
+    .question {
+      margin-bottom: 15px;
+    }
+    .answers button {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #d16ba5;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .answers button:hover {
+      background-color: #b95490;
+    }
+    #result {
+      display: none;
+      margin-top: 20px;
+    }
+    #result img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Anniversary Quiz</h1>
+  <div class="quiz-container">
+    <div id="quiz">
+      <div class="question" data-answer="B">
+        <h2>1. Where did we first meet?</h2>
+        <div class="answers">
+          <button onclick="checkAnswer(this, 'A')">A. At the park</button>
+          <button onclick="checkAnswer(this, 'B')">B. At the coffee shop</button>
+          <button onclick="checkAnswer(this, 'C')">C. At a concert</button>
+        </div>
+      </div>
+      <div class="question" data-answer="C">
+        <h2>2. What’s my favorite color?</h2>
+        <div class="answers">
+          <button onclick="checkAnswer(this, 'A')">A. Red</button>
+          <button onclick="checkAnswer(this, 'B')">B. Green</button>
+          <button onclick="checkAnswer(this, 'C')">C. Blue</button>
+        </div>
+      </div>
+    </div>
+    <div id="result">
+      <h2>Congratulations! You got everything right 🎉</h2>
+      <p>Here's a special surprise for you:</p>
+      <img src="your-photo-url-here.jpg" alt="Surprise">
+    </div>
+  </div>
+
+  <script>
+    let correctAnswers = 0;
+
+    function checkAnswer(button, answer) {
+      const question = button.closest('.question');
+      const correctAnswer = question.getAttribute('data-answer');
+
+      if (answer === correctAnswer) {
+        correctAnswers++;
+        button.style.backgroundColor = '#4CAF50';
+      } else {
+        button.style.backgroundColor = '#f44336';
+      }
+
+      // Disable all buttons for this question
+      const buttons = question.querySelectorAll('button');
+      buttons.forEach(btn => btn.disabled = true);
+
+      // Check if all questions are answered
+      const totalQuestions = document.querySelectorAll('.question').length;
+      if (correctAnswers === totalQuestions) {
+        document.getElementById('quiz').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
